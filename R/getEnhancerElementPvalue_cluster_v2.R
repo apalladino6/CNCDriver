@@ -22,6 +22,7 @@
 #' @param taskNum Default is 0, 0 means to run all elements
 #' @param unitSize  Number of elements to run per task
 #' @param debugMode TRUE or FALSE
+#' @param ref hg19 or hg38
 #'
 #' @return results data frame
 #'
@@ -60,7 +61,7 @@ getEnhancerElementPvalueWithPreFilter2<-function(inputFileDir,outputFileDir,
                             replicationTimingGenomeBinnedFile,replicationTimingElementBinnedFile,
                             tumorType,mutationType,cellType,replicationTimingCutOff,
                             seedNum=42,reSampleIterations,reRunPvalueCutOff=0.1,
-                            useCores,taskNum,unitSize,debugMode=FALSE){
+                            useCores,taskNum,unitSize,debugMode=FALSE,ref="hg19"){
 
 
     #library(data.table)
@@ -403,7 +404,7 @@ getEnhancerElementPvalueWithPreFilter2<-function(inputFileDir,outputFileDir,
     
     cat(sprintf("Add triNucleotideDistribution information\n"))
     
-    triNucleotideDat<-addTriNucleotideDistribution(reducedFunseqOutputNCDS)
+    triNucleotideDat<-addTriNucleotideDistribution(reducedFunseqOutputNCDS, ref)
     
     reducedFunseqOutputNCDS<-cbind(reducedFunseqOutputNCDS,triNucleotideDat)
     
